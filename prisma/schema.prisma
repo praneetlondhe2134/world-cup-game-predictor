@@ -26,6 +26,7 @@ model Team {
 
 model Match {
   id          String       @id @default(uuid())
+  slug        String       @unique
   homeTeamId  String
   awayTeamId  String
   homeTeam    Team         @relation("HomeTeamMatches", fields: [homeTeamId], references: [id])
