@@ -3,7 +3,7 @@ services:
     image: postgres:16
     container_name: world-cup-db
     environment:
-      POSTGRES_DB: worldcup_predictor
+      POSTGRES_DB: world_cup_predictor
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
