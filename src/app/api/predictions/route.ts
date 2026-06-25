@@ -30,31 +30,53 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: false, error: 'predictedWinnerId must be a string or null' }, { status: 400 })
   }
 
-  // 1. Find the match by matchId
   const match = await prisma.match.findUnique({
     where: { id: matchId },
   })
 
-  // 2. If no match exists, return error
   if (!match) {
     return NextResponse.json({ success: false, error: 'Match not found' }, { status: 404 })
   }
 
-  // 3. If match is completed, return error
   if (match.status === 'completed') {
     return NextResponse.json({ success: false, error: 'Cannot predict a completed match' }, { status: 400 })
   }
 
-  // 4. If predictedWinnerId is provided, it must be one of the two teams
   if (predictedWinnerId !== undefined && predictedWinnerId !== null) {
     if (predictedWinnerId !== match.homeTeamId && predictedWinnerId !== match.awayTeamId) {
       return NextResponse.json({ success: false, error: 'predictedWinnerId must be a team playing in this match' }, { status: 400 })
     }
   }
 
-  return NextResponse.json({
-    success: true,
-    message: 'Prediction endpoint reached',
-    received: body,
+ 
+  const trimmedDisplayName = displayName.trim()
+
+
+  const existing = await prisma.prediction.findUnique({
+    where: {
+      matchId_displayName: {
+        matchId,
+        displayName: trimmedDisplayName,
+      },
+    },
   })
+
+
+  if (existing) {
+    return NextResponse.json({ success: false, error: 'You have already submitted a prediction for this match' }, { status: 409 })
+  }
+
+
+  const prediction = await prisma.prediction.create({
+    data: {
+      matchId,
+      displayName: trimmedDisplayName,
+      predictedWinnerId: predictedWinnerId ?? null,
+      predictedHomeScore: predictedHomeScore ?? null,
+      predictedAwayScore: predictedAwayScore ?? null,
+    },
+  })
+
+  
+  return NextResponse.json({ success: true, prediction }, { status: 201 })
 }
