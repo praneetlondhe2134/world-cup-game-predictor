@@ -31,7 +31,7 @@ export default function Leaderboard() {
 
   return (
     <div className="mt-10">
-      <h2 className="bg-gray-100 text-left text-gray-900">Leaderboard</h2>
+      <h2 className="text-xl font-semibold mb-4 text-gray-900">Leaderboard</h2>
       <table className="w-full text-sm border rounded">
         <thead>
           <tr className="bg-gray-100 text-left text-gray-900">
@@ -43,7 +43,7 @@ export default function Leaderboard() {
         </thead>
         <tbody>
           {entries.map((entry, index) => (
-            <tr key={entry.displayName} className="border-t">
+            <tr key={entry.displayName} className="border-t text-gray-900">
               <td className="p-2">{index + 1}</td>
               <td className="p-2">{entry.displayName}</td>
               <td className="p-2">{entry.totalPoints}</td>
