@@ -2,13 +2,19 @@
 import PredictionForm from './PredictionForm';
 import { useEffect, useState } from 'react';
 
-interface Match {
-  id: number;
-  homeTeam: { name: string; code: string };
-  awayTeam: { name: string; code: string };
-  kickoff: string;
-  status: string;
-}
+interface Team {
+    id: string;
+    name: string;
+    code: string;
+  }
+  
+  interface Match {
+    id: string;
+    homeTeam: Team;
+    awayTeam: Team;
+    kickoff: string;
+    status: string;
+  }
 
 export default function MatchList() {
   const [matches, setMatches] = useState<Match[]>([]);
@@ -44,7 +50,12 @@ export default function MatchList() {
             <p>Kickoff: {match.kickoff}</p>
             <p>Status: {match.status}</p>
           </div>
-          <PredictionForm homeTeam={match.homeTeam.name} awayTeam={match.awayTeam.name} />
+          <PredictionForm 
+          homeTeam={match.homeTeam.name}
+          awayTeam={match.awayTeam.name}
+          homeTeamId={match.homeTeam.id}
+          awayTeamId={match.awayTeam.id}
+          />
         </div>
       ))}
     </div>
