@@ -41,7 +41,7 @@ export default function MatchList() {
     <div className="flex flex-col gap-4 mt-8">
       {matches.map(match => (
         <div key={match.id} className="border rounded-lg p-4 bg-white shadow-sm">
-          <div className="flex justify-between text-lg font-semibold">
+          <div className="flex justify-between text-lg font-semibold text-gray-900">
             <span>{match.homeTeam.name} ({match.homeTeam.code})</span>
             <span className="text-gray-400">vs</span>
             <span>{match.awayTeam.name} ({match.awayTeam.code})</span>

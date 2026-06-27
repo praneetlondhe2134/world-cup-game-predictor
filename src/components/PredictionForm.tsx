@@ -61,12 +61,12 @@ export default function PredictionForm({ matchId, homeTeam, awayTeam, homeTeamId
         placeholder="Your display name"
         value={displayName}
         onChange={e => setDisplayName(e.target.value)}
-        className="border rounded p-2 text-sm w-full"
+        className="border rounded p-2 text-sm w-full text-gray-900"
       />
       <select
         value={predictedWinnerId}
         onChange={e => setPredictedWinnerId(e.target.value)}
-        className="border rounded p-2 text-sm w-full"
+        className="border rounded p-2 text-sm w-full text-gray-900"
       >
         <option value="">-- Select winner --</option>
         <option value={homeTeamId}>{homeTeam}</option>
@@ -79,14 +79,14 @@ export default function PredictionForm({ matchId, homeTeam, awayTeam, homeTeamId
           placeholder="Home score"
           value={predictedHomeScore}
           onChange={e => setPredictedHomeScore(e.target.value)}
-          className="border rounded p-2 text-sm w-full"
+          className="border rounded p-2 text-sm w-full text-gray-900"
         />
         <input
           type="number"
           placeholder="Away score"
           value={predictedAwayScore}
           onChange={e => setPredictedAwayScore(e.target.value)}
-          className="border rounded p-2 text-sm w-full"
+          className="border rounded p-2 text-sm w-full text-gray-900"
         />
       </div>
       <button
