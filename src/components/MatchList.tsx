@@ -8,12 +8,20 @@ interface Team {
   code: string;
 }
 
+interface AppPrediction {
+  predictedResult: 'home' | 'away' | 'draw';
+  predictedWinner: string | null;
+  confidence: 'low' | 'medium' | 'high';
+  explanation: string;
+}
+
 interface Match {
   id: string;
   homeTeam: Team;
   awayTeam: Team;
   kickoff: string;
   status: string;
+  appPrediction: AppPrediction;
 }
 
 export default function MatchList() {
@@ -50,6 +58,14 @@ export default function MatchList() {
             <p>Kickoff: <span className="text-gray-900 font-medium">{match.kickoff || 'TBC'}</span></p>
             <p>Status: <span className="text-gray-900 font-medium capitalize">{match.status}</span></p>
           </div>
+          {match.appPrediction && (
+            <div className="mt-4 bg-gray-50 rounded-lg p-3 text-sm">
+              <p className="font-semibold text-gray-900 mb-1">App Prediction</p>
+              <p className="text-gray-700">Winner: <span className="font-medium">{match.appPrediction.predictedWinner ?? 'Draw'}</span></p>
+              <p className="text-gray-700">Confidence: <span className="font-medium capitalize">{match.appPrediction.confidence}</span></p>
+              <p className="text-gray-600 mt-1 italic">{match.appPrediction.explanation}</p>
+            </div>
+          )}
           <PredictionForm
             matchId={match.id}
             homeTeam={match.homeTeam.name}
