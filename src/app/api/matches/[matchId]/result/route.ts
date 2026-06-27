@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
+import prisma from '@/lib/prisma';
+import { calculatePoints } from '@/lib/scoring';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { matchId: string } }
+  { params }: { params: Promise<{ matchId: string }> }
 ) {
   const { matchId } = await params;
 
@@ -33,11 +35,50 @@ export async function POST(
     return NextResponse.json({ error: 'Scores must be 0 or greater' }, { status: 400 });
   }
 
+  const match = await prisma.match.findUnique({
+    where: { id: matchId },
+  });
+
+  if (!match) {
+    return NextResponse.json({ error: 'Match not found' }, { status: 404 });
+  }
+
+  const updatedMatch = await prisma.match.update({
+    where: { id: matchId },
+    data: {
+      homeScore,
+      awayScore,
+      status: 'completed',
+    },
+  });
+
+  const predictions = await prisma.prediction.findMany({
+    where: { matchId },
+  });
+
+  let scoredCount = 0;
+  for (const prediction of predictions) {
+    const points = calculatePoints(
+      homeScore,
+      awayScore,
+      prediction.predictedWinnerId,
+      match.homeTeamId,
+      match.awayTeamId,
+      prediction.predictedHomeScore,
+      prediction.predictedAwayScore,
+    );
+
+    await prisma.prediction.update({
+      where: { id: prediction.id },
+      data: { pointsAwarded: points },
+    });
+
+    scoredCount++;
+  }
+
   return NextResponse.json({
     success: true,
-    message: 'Validation passed',
-    matchId,
-    homeScore,
-    awayScore,
+    match: updatedMatch,
+    predictionsScored: scoredCount,
   });
 }
