@@ -7,33 +7,36 @@ const prisma = new PrismaClient({ adapter })
 type Team = {
     name: string;
     code: string;
-    group?: string; 
+    group?: string;
+    rating: number;
 };
 
 const demoTeams: Team[] = [
-    { name: 'Australia', code: 'AUS', group: 'A' },
-    { name: 'Brazil', code: 'BRA', group: 'B' },
-    { name: 'France', code: 'FRA', group: 'B' }, 
-    { name: 'Japan', code: 'JPN', group: 'A' },
+    { name: 'Australia', code: 'AUS', group: 'A', rating: 1400 },
+    { name: 'Brazil', code: 'BRA', group: 'B', rating: 1800 },
+    { name: 'France', code: 'FRA', group: 'B', rating: 1750 }, 
+    { name: 'Japan', code: 'JPN', group: 'A', rating: 1450 },
 ];
 
 async function seedTeams() {
-    for(const team of demoTeams) {
-        await prisma.team.upsert({
-            where: {
-                code: team.code,
-            },
-            update: {
-                name: team.name,
-                group: team.group ?? null,
-            },
-            create: {
-                code: team.code,
-                name: team.name,
-                group: team.group,
-            },
-        });
-    }
+  for (const team of demoTeams) {
+    await prisma.team.upsert({
+      where: {
+        code: team.code,
+      },
+      update: {
+        name: team.name,
+        group: team.group ?? null,
+        rating: team.rating,
+      },
+      create: {
+        code: team.code,
+        name: team.name,
+        group: team.group,
+        rating: team.rating,
+      },
+    });
+  }
 }
 
 async function seedMatches() {
@@ -42,7 +45,7 @@ async function seedMatches() {
     const teamFRA = await prisma.team.findUniqueOrThrow({ where: { code: 'FRA' } });
     const teamJPN = await prisma.team.findUniqueOrThrow({ where: { code: 'JPN' } });
   
-    // Match 1: AUS vs JPN
+
     await prisma.match.upsert({
       where: { slug: 'aus-jpn-2026' },
       update: {
@@ -60,7 +63,7 @@ async function seedMatches() {
       },
     });
   
-    // Match 2: BRA vs FRA
+   
     await prisma.match.upsert({
       where: { slug: 'bra-fra-2026' },
       update: {
