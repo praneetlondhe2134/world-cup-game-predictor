@@ -1,5 +1,5 @@
 'use client';
-
+import PredictionForm from './PredictionForm';
 import { useEffect, useState } from 'react';
 
 interface Match {
@@ -44,7 +44,7 @@ export default function MatchList() {
             <p>Kickoff: {match.kickoff}</p>
             <p>Status: {match.status}</p>
           </div>
-          <p className="mt-2 text-xs text-gray-400 italic">Prediction form coming next</p>
+          <PredictionForm homeTeam={match.homeTeam.name} awayTeam={match.awayTeam.name} />
         </div>
       ))}
     </div>
