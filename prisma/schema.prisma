@@ -17,6 +17,7 @@ model Team {
   name                       String
   code                       String       @unique
   group                      String?
+  rating                     Int          @default(1000)
   homeMatches                Match[]      @relation("HomeTeamMatches")
   awayMatches                Match[]      @relation("AwayTeamMatches")
   predictedWinnerPredictions Prediction[] @relation("PredictedWinnerTeam")
