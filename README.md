@@ -4,6 +4,10 @@ A full-stack sports prediction platform where users can view World Cup-style fix
 
 This project was built as a portfolio-ready full-stack application using Next.js, PostgreSQL, Prisma, Docker, and TypeScript.
 
+## Live Demo
+
+[View the deployed app here](https://world-cup-game-predictor-5zihxtc5c-praneetlondhe2134s-projects.vercel.app)
+
 ## Features
 
 * View match fixtures loaded from the database
