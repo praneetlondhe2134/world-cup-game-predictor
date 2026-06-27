@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server'
-import prisma from '@/lib/prisma'
+import { NextResponse } from 'next/server';
+import prisma from '@/lib/prisma';
+import { predictMatch } from '@/lib/predictor';
 
 export async function GET() {
   const matches = await prisma.match.findMany({
@@ -9,6 +10,7 @@ export async function GET() {
           id: true,
           name: true,
           code: true,
+          rating: true,
         },
       },
       awayTeam: {
@@ -16,13 +18,24 @@ export async function GET() {
           id: true,
           name: true,
           code: true,
+          rating: true,
         },
       },
     },
     orderBy: {
       kickoffTime: 'asc',
     },
-  })
+  });
 
-  return NextResponse.json({ success: true, matches })
+  const matchesWithPredictions = matches.map(match => ({
+    ...match,
+    appPrediction: predictMatch(
+      match.homeTeam.name,
+      match.homeTeam.rating,
+      match.awayTeam.name,
+      match.awayTeam.rating,
+    ),
+  }));
+
+  return NextResponse.json({ success: true, matches: matchesWithPredictions });
 }

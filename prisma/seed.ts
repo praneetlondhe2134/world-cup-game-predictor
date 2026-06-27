@@ -51,7 +51,6 @@ async function seedMatches() {
       update: {
         kickoffTime: new Date("2026-06-15T10:00:00Z"),
         stage: "Group",
-        status: "scheduled",
       },
       create: {
         slug: 'aus-jpn-2026',
@@ -69,7 +68,6 @@ async function seedMatches() {
       update: {
         kickoffTime: new Date("2026-06-15T14:00:00Z"),
         stage: "Group",
-        status: "scheduled",
       },
       create: {
         slug: 'bra-fra-2026',
