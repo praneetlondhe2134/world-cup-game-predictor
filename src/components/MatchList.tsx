@@ -50,12 +50,13 @@ export default function MatchList() {
             <p>Kickoff: {match.kickoff}</p>
             <p>Status: {match.status}</p>
           </div>
-          <PredictionForm 
-          homeTeam={match.homeTeam.name}
-          awayTeam={match.awayTeam.name}
-          homeTeamId={match.homeTeam.id}
-          awayTeamId={match.awayTeam.id}
-          />
+          <PredictionForm
+  matchId={match.id}
+  homeTeam={match.homeTeam.name}
+  awayTeam={match.awayTeam.name}
+  homeTeamId={match.homeTeam.id}
+  awayTeamId={match.awayTeam.id}
+/>
         </div>
       ))}
     </div>
