@@ -1,0 +1,50 @@
+[
+    {
+      "externalId": "aus-jpn-2026",
+      "homeTeamName": "Australia",
+      "homeTeamCode": "AUS",
+      "awayTeamName": "Japan",
+      "awayTeamCode": "JPN",
+      "kickoffTime": "2026-06-15T10:00:00Z",
+      "stage": "Group",
+      "status": "completed",
+      "homeScore": 2,
+      "awayScore": 1
+    },
+    {
+      "externalId": "bra-fra-2026",
+      "homeTeamName": "Brazil",
+      "homeTeamCode": "BRA",
+      "awayTeamName": "France",
+      "awayTeamCode": "FRA",
+      "kickoffTime": "2026-06-15T14:00:00Z",
+      "stage": "Group",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
+    },
+    {
+      "externalId": "arg-ger-2026",
+      "homeTeamName": "Argentina",
+      "homeTeamCode": "ARG",
+      "awayTeamName": "Germany",
+      "awayTeamCode": "GER",
+      "kickoffTime": "2026-06-16T10:00:00Z",
+      "stage": "Group",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
+    },
+    {
+      "externalId": "esp-por-2026",
+      "homeTeamName": "Spain",
+      "homeTeamCode": "ESP",
+      "awayTeamName": "Portugal",
+      "awayTeamCode": "POR",
+      "kickoffTime": "2026-06-16T14:00:00Z",
+      "stage": "Group",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
+    }
+  ]
